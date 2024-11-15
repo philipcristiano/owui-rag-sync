@@ -1,0 +1,31 @@
+[package]
+name = "owui-rag-sync"
+version = "0.0.1"
+edition = "2021"
+description = "Sync files to OpenWebUI"
+license = "Apache-2.0"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.82"
+chrono = "0.4.38"
+clap = { version = "4.5.4", features = ["derive", "env"]}
+serde = { version = "1.0.200", features = ["derive"] }
+serde_json = "1.0.116"
+tokio = { version = "1.37.0", features = ["full"]}
+toml = "0.8.12"
+tracing = "0.1.40"
+
+url = "2.5.0"
+signal-hook = "0.3.17"
+service_conventions = { version = "0.0.23", features = ["tracing", "oidc", "tracing-http"]}
+
+reqwest = { version = "0.12.4", features = ["rustls-tls", "json", "multipart"], default-features = false }
+thiserror = "1.0.59"
+http = "1.1.0"
+rust-s3 = { version = "0.35.1", features = ["with-tokio"] }
+aws-creds = { version = "0.38.0", features = ["rustls-tls"], default-features = false }
+aws-region = "0.27.0"
+bytes = "1.8.0"
