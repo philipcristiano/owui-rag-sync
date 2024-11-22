@@ -14,6 +14,8 @@ pub struct Args {
     endpoint: String,
     #[arg(short, long, default_value = "eu-central-1")]
     region: String,
+    #[arg(short, long, default_value = "24")]
+    hours_since_modified: u32,
 }
 
 #[tokio::main]
@@ -30,7 +32,7 @@ async fn main() -> anyhow::Result<()> {
     let bucket =
         Bucket::new(args.bucket.as_str(), region.clone(), credentials.clone())?.with_path_style();
 
-    let since = chrono::Utc::now() - chrono::Duration::hours(48);
+    let since = chrono::Utc::now() - chrono::Duration::hours(args.hours_since_modified.into());
 
     let items = bucket.list("".to_string(), None).await?;
     for item in items {
