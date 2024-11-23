@@ -14,7 +14,7 @@ pub struct Args {
     endpoint: String,
     #[arg(short, long, default_value = "eu-central-1")]
     region: String,
-    #[arg(short, long, default_value = "24")]
+    #[arg(long, default_value = "24")]
     hours_since_modified: u32,
 }
 
