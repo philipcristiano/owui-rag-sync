@@ -82,7 +82,7 @@ async fn send_as_file(name: String, data: Vec<u8>) -> anyhow::Result<()> {
     let owui_token = env::var("OPENWEBUI_BEARER_TOKEN").expect("env OPENWEBUI_BEARER_TOKEN must be set");
     let owui_kid = env::var("OPENWEBUI_KNOWLEDGE_ID").expect("env OPENWEBUI_KNOWLEDGE_ID must be set");
     let file_url = format!("{owui_url}/api/v1/files/");
-    let knowledge_url = format!("{owui_url}/api/v1/knowledge/{owui_kid}/file/add");
+    let knowledge_url = format!("{owui_url}/api/v1/knowledge/{owui_kid}/file/update");
     let bearer = format!("Bearer {owui_token}");
 
     println!("Uploading file: {:?} to URL {:?} ", name, file_url);
