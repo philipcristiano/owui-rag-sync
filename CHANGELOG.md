@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.1...v0.1.2) (2024-11-23)
+
+
+### Bug Fixes
+
+* Use bookworm for build ([9d0192e](https://github.com/philipcristiano/owui-rag-sync/commit/9d0192ee8013b1ff0c456bdd874a25d82714833d))
+
 ## [0.1.1](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.0...v0.1.1) (2024-11-23)
 
 
