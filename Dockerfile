@@ -1,12 +1,21 @@
-FROM rust:1.82-bookworm as builder
-WORKDIR /usr/src/app
+FROM lukemathwalker/cargo-chef:latest-rust-1.82 AS chef
+WORKDIR /app
 
+FROM chef AS planner
 COPY . .
-RUN cargo install --path .
+RUN cargo chef prepare --recipe-path recipe.json
 
+FROM chef AS builder
+COPY --from=planner /app/recipe.json recipe.json
+# Build dependencies - this is the caching Docker layer!
+RUN cargo chef cook --release --recipe-path recipe.json
+# Build application
+COPY . .
+RUN cargo build --release --bin owui-rag-sync
+
+# We do not need the Rust toolchain to run the binary!
 FROM debian:bookworm-slim
-RUN apt-get update && apt-get install -y procps ca-certificates && rm -rf /var/lib/apt/lists/*
-
-COPY --from=builder /usr/local/cargo/bin/owui-rag-sync /usr/local/bin/owui-rag-sync
+WORKDIR /app
+COPY --from=builder /app/target/release/owui-rag-sync /usr/local/bin
 
 ENTRYPOINT ["/usr/local/bin/owui-rag-sync"]
