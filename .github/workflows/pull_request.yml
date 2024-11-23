@@ -19,6 +19,7 @@ jobs:
     uses: "philipcristiano/workflows/.github/workflows/docker-build.yml@main"
     with:
       timeout: 25
+      check_command: "-h"
 
   rust:
     uses: "philipcristiano/workflows/.github/workflows/rust.yml@main"
