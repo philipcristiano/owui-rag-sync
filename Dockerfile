@@ -16,7 +16,7 @@ RUN cargo build --release --bin owui-rag-sync
 # We do not need the Rust toolchain to run the binary!
 FROM debian:bookworm-slim
 WORKDIR /app
-RUN apt-get update && apt-get install openssl -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install openssl ca-certificates -y && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/target/release/owui-rag-sync /usr/local/bin
 
