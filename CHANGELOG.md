@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.2...v0.1.3) (2024-11-23)
+
+
+### Bug Fixes
+
+* Include system certs for dockerfile ([60e53a7](https://github.com/philipcristiano/owui-rag-sync/commit/60e53a77801bbf6a44f936ccb3ba3f488cc17c03))
+
 ## [0.1.2](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.1...v0.1.2) (2024-11-23)
 
 
