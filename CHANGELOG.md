@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.4](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.3...v0.1.4) (2024-12-03)
+
+
+### Bug Fixes
+
+* Attemp to update existing files ([f7a8dfc](https://github.com/philipcristiano/owui-rag-sync/commit/f7a8dfca6aebad9d8503cf3258bd0e9f523fe44f))
+* **deps:** update rust crate bytes to v1.9.0 ([#18](https://github.com/philipcristiano/owui-rag-sync/issues/18)) ([e844a19](https://github.com/philipcristiano/owui-rag-sync/commit/e844a19350a214a3e0c6b63459f43b49722f4be9))
+* **deps:** update rust crate service_conventions to 0.0.24 ([#19](https://github.com/philipcristiano/owui-rag-sync/issues/19)) ([0445f18](https://github.com/philipcristiano/owui-rag-sync/commit/0445f182692447272b6c6df0c085af98e7141d7a))
+* **deps:** update rust crate tokio to v1.42.0 ([#22](https://github.com/philipcristiano/owui-rag-sync/issues/22)) ([95f48c2](https://github.com/philipcristiano/owui-rag-sync/commit/95f48c2e39fd6cdb1ee4cc6ecc1537ba7b834cec))
+* **deps:** update rust crate tracing to v0.1.41 ([#16](https://github.com/philipcristiano/owui-rag-sync/issues/16)) ([6b3166e](https://github.com/philipcristiano/owui-rag-sync/commit/6b3166e6bd66b8f5bb0597e53505e98672dea2a4))
+
 ## [0.1.3](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.2...v0.1.3) (2024-11-23)
 
 
