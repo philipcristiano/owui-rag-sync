@@ -35,7 +35,9 @@ async fn main() -> anyhow::Result<()> {
     let since = chrono::Utc::now() - chrono::Duration::hours(args.hours_since_modified.into());
 
     println!("Getting existing files");
-    let uploaded_files_info = get_uploaded_files_info().await?;
+    let mut uploaded_files_info = get_uploaded_files_info().await?;
+    uploaded_files_info.sort_by_key(|fi| fi.filename.clone());
+
     let items = bucket.list("".to_string(), None).await?;
     for item in items {
         for f in item.contents {
@@ -49,7 +51,7 @@ async fn main() -> anyhow::Result<()> {
             if f.key.ends_with(".md") {
                 let safe_name = str::replace(f.key.as_str(), "/", "-");
                 let safe_name = str::replace(safe_name.as_str(), " ", "-");
-                println!("{:?}", safe_name);
+                println!("Using key for {:?}{:?}", f.key, safe_name);
                 let obj = bucket.get_object(f.key.clone()).await?;
                 // Should upload/update the file
                 //
@@ -85,7 +87,14 @@ async fn send_as_file(name: String, data: Vec<u8>) -> anyhow::Result<()> {
     use reqwest::multipart;
 
     let form = multipart::Form::new();
-    let file_part = multipart::Part::bytes(data).file_name(name.clone());
+    let mut file_part_headers = reqwest::header::HeaderMap::new();
+    file_part_headers.insert(
+        reqwest::header::CONTENT_TYPE,
+        "application/octet-stream".parse()?,
+    );
+    let file_part = multipart::Part::bytes(data)
+        .file_name(name.clone())
+        .headers(file_part_headers);
     let form = form.part("file", file_part);
     let client = reqwest::Client::new();
     let owui_url = env::var("OPENWEBUI_URL").expect("env OPENWEBUI_URL must be set");
@@ -154,7 +163,12 @@ async fn update_file(file: &FileResponse, data: &str) -> anyhow::Result<()> {
         .json(&file_update)
         .send()
         .await?;
-    let text = resp.error_for_status()?.text().await?;
+
+    let maybe_err = resp.error_for_status_ref().map(|_| ());
+    if resp.status() != 200 {
+        let t = resp.text().await?;
+        println!("error updating file: {t}");
+    }
 
     let add = AddFileToKnowledgeBase { file_id: id };
     println!("Updating knowledgebase request: {:?}", add);
@@ -165,14 +179,21 @@ async fn update_file(file: &FileResponse, data: &str) -> anyhow::Result<()> {
     //      VECTOR_DB_CLIENT.insert(
     //
     // using this code:
-    // let resp = client
-    //     .post(knowledge_url)
-    //     .header("Authorization", bearer)
-    //     .header("Content-Type", "application/json")
-    //     .json(&add)
-    //     .send()
-    //     .await?;
-    // println!("Response: {}", resp.text().await?);
+    let resp = client
+        .post(knowledge_url_update)
+        .header("Authorization", &bearer)
+        .header("Content-Type", "application/json")
+        .json(&add)
+        .send()
+        .await?;
+    if resp.status() != 200 {
+        let t = resp.text().await?;
+        println!("error trying to update: {t}");
+    } else {
+        return Ok(());
+    }
+
+    println!("Going to try and add the item");
     //
     // Going to delete then add it back to the knowledgebase
     //
@@ -197,7 +218,7 @@ async fn update_file(file: &FileResponse, data: &str) -> anyhow::Result<()> {
     );
     let resp = client
         .post(knowledge_url_add)
-        .header("Authorization", bearer.clone())
+        .header("Authorization", &bearer)
         .header("Content-Type", "application/json")
         .json(&add)
         .send()
