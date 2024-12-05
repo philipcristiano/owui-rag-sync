@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.5...v0.1.6) (2024-12-05)
+
+
+### Bug Fixes
+
+* Remove content-type missing items ([86b7549](https://github.com/philipcristiano/owui-rag-sync/commit/86b7549c82c8a448f80d5d2f1997c54a5ebbd5be))
+
 ## [0.1.5](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.4...v0.1.5) (2024-12-04)
 
 
