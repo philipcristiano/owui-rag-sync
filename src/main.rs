@@ -42,7 +42,6 @@ async fn main() -> anyhow::Result<()> {
     for item in items {
         for f in item.contents {
             let f_modified = chrono::DateTime::parse_from_rfc3339(&f.last_modified)?;
-            println!("{:?}", f);
             println!("{:?}", f.key);
             if f_modified < since {
                 println!("Modified before `since`, skipping");
@@ -63,7 +62,24 @@ async fn main() -> anyhow::Result<()> {
                             send_as_file(safe_name, b).await?
                         }
                     }
-                    Some(f) => update_file(f, obj.to_string()?.as_str()).await?,
+                    Some(owui_f) => match owui_f.meta.content_type {
+                        None => delete_file(owui_f).await?,
+                        _ => {
+                            if owui_f.updated_at < f_modified {
+                                println!(
+                                    "Src file is newer than owui: {} owui: {}",
+                                    f_modified, owui_f.updated_at
+                                );
+
+                                update_file(owui_f, obj.to_string()?.as_str()).await?
+                            } else {
+                                println!(
+                                    "owui file is newer than src: {} owui: {}",
+                                    f_modified, owui_f.updated_at
+                                )
+                            }
+                        }
+                    },
                 }
             }
         }
@@ -134,6 +150,37 @@ struct FileContentUpdate {
     content: String,
 }
 
+async fn delete_file(file: &FileResponse) -> anyhow::Result<()> {
+    let client = reqwest::Client::new();
+    let owui_url = env::var("OPENWEBUI_URL").expect("env OPENWEBUI_URL must be set");
+    let owui_token =
+        env::var("OPENWEBUI_BEARER_TOKEN").expect("env OPENWEBUI_BEARER_TOKEN must be set");
+    let id = file.id.clone();
+    let owui_kid =
+        env::var("OPENWEBUI_KNOWLEDGE_ID").expect("env OPENWEBUI_KNOWLEDGE_ID must be set");
+    let file_delete_url = format!("{owui_url}/api/v1/files/{id}");
+    let bearer = format!("Bearer {owui_token}");
+
+    println!(
+        "Deleting file: {:?} with meta.content_type: {:?} ",
+        file.filename, file.meta.content_type
+    );
+    let resp = client
+        .delete(file_delete_url)
+        .header("Authorization", bearer.clone())
+        .header("Content-Type", "application/json")
+        .send()
+        .await?;
+
+    let maybe_err = resp.error_for_status_ref().map(|_| ());
+    if resp.status() != 200 {
+        let t = resp.text().await?;
+        println!("error deleting file: {t}");
+    }
+    maybe_err?;
+    Ok(())
+}
+
 async fn update_file(file: &FileResponse, data: &str) -> anyhow::Result<()> {
     let client = reqwest::Client::new();
     let owui_url = env::var("OPENWEBUI_URL").expect("env OPENWEBUI_URL must be set");
@@ -153,8 +200,8 @@ async fn update_file(file: &FileResponse, data: &str) -> anyhow::Result<()> {
     };
 
     println!(
-        "Updating file: {:?} to URL {:?} ",
-        file.filename, file_update_url
+        "Updating file: {:?} to URL {:?} with meta.content_type: {:?} ",
+        file.filename, file_update_url, file.meta.content_type
     );
     let resp = client
         .post(file_update_url)
@@ -231,12 +278,21 @@ async fn update_file(file: &FileResponse, data: &str) -> anyhow::Result<()> {
     Ok(())
 }
 
+use chrono::serde::ts_seconds;
 #[derive(Deserialize, Serialize, Debug)]
 struct FileResponse {
     id: String,
     filename: String,
-    //"created_at": 0,
-    //"updated_at": 0,
+    #[serde(with = "ts_seconds")]
+    created_at: chrono::DateTime<chrono::Utc>,
+    #[serde(with = "ts_seconds")]
+    updated_at: chrono::DateTime<chrono::Utc>,
+    meta: FileMeta,
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+struct FileMeta {
+    content_type: Option<String>,
 }
 
 fn get_by_filename<'a>(files: &'a Vec<FileResponse>, name: &'a str) -> Option<&'a FileResponse> {
