@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.6...v0.1.7) (2024-12-05)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate clap to v4.5.23 ([#31](https://github.com/philipcristiano/owui-rag-sync/issues/31)) ([ae25cb8](https://github.com/philipcristiano/owui-rag-sync/commit/ae25cb8e878e6f53c0130008c10f7f25a4c0cb27))
+
 ## [0.1.6](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.5...v0.1.6) (2024-12-05)
 
 
