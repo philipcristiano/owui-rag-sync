@@ -1962,7 +1962,7 @@ dependencies = [
  "bytes",
  "http 1.2.0",
  "opentelemetry",
- "reqwest 0.12.9",
+ "reqwest 0.12.10",
 ]
 
 [[package]]
@@ -1979,7 +1979,7 @@ dependencies = [
  "opentelemetry-proto",
  "opentelemetry_sdk",
  "prost",
- "reqwest 0.12.9",
+ "reqwest 0.12.10",
  "thiserror 1.0.69",
  "tokio",
  "tonic",
@@ -2061,7 +2061,7 @@ dependencies = [
  "chrono",
  "clap",
  "http 1.2.0",
- "reqwest 0.12.9",
+ "reqwest 0.12.10",
  "rust-s3",
  "serde",
  "serde_json",
@@ -2495,9 +2495,9 @@ dependencies = [
 
 [[package]]
 name = "reqwest"
-version = "0.12.9"
+version = "0.12.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a77c62af46e79de0a562e1a9849205ffcb7fc1238876e9bd743357570e04046f"
+checksum = "3d3536321cfc54baa8cf3e273d5e1f63f889067829c4b410fcdbac8ca7b80994"
 dependencies = [
  "base64 0.22.1",
  "bytes",
@@ -2529,6 +2529,7 @@ dependencies = [
  "sync_wrapper 1.0.2",
  "tokio",
  "tokio-rustls 0.26.1",
+ "tower 0.5.2",
  "tower-service",
  "url",
  "wasm-bindgen",
