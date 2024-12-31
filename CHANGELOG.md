@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.7](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.6...v0.1.7) (2024-12-31)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate anyhow to v1.0.95 ([#41](https://github.com/philipcristiano/owui-rag-sync/issues/41)) ([66d0c2e](https://github.com/philipcristiano/owui-rag-sync/commit/66d0c2e2e2080543a40751e8468577d07b0897e2))
+* **deps:** update rust crate chrono to v0.4.39 ([#35](https://github.com/philipcristiano/owui-rag-sync/issues/35)) ([afe4330](https://github.com/philipcristiano/owui-rag-sync/commit/afe433039af6cb30394eff3f55b1327ca8440ff9))
+* **deps:** update rust crate clap to v4.5.23 ([#31](https://github.com/philipcristiano/owui-rag-sync/issues/31)) ([ae25cb8](https://github.com/philipcristiano/owui-rag-sync/commit/ae25cb8e878e6f53c0130008c10f7f25a4c0cb27))
+* **deps:** update rust crate reqwest to v0.12.10 ([#44](https://github.com/philipcristiano/owui-rag-sync/issues/44)) ([a82c8e8](https://github.com/philipcristiano/owui-rag-sync/commit/a82c8e8b760fd627ff43261bfc5b6ffd033207ca))
+* **deps:** update rust crate reqwest to v0.12.11 ([#45](https://github.com/philipcristiano/owui-rag-sync/issues/45)) ([ee57605](https://github.com/philipcristiano/owui-rag-sync/commit/ee57605b065b851d8d7cbbe95c5db23756d8e957))
+* **deps:** update rust crate reqwest to v0.12.12 ([#49](https://github.com/philipcristiano/owui-rag-sync/issues/49)) ([6258cb0](https://github.com/philipcristiano/owui-rag-sync/commit/6258cb0fcc89baf9861899a6ddf1901ba61b313f))
+* **deps:** update rust crate serde to v1.0.216 ([#36](https://github.com/philipcristiano/owui-rag-sync/issues/36)) ([ab61a10](https://github.com/philipcristiano/owui-rag-sync/commit/ab61a1054d347334bccbab153dec3a42d41c0a40))
+* **deps:** update rust crate serde to v1.0.217 ([#46](https://github.com/philipcristiano/owui-rag-sync/issues/46)) ([4b3ac6b](https://github.com/philipcristiano/owui-rag-sync/commit/4b3ac6baec3dbd04c80efb967f85e807e9e120f9))
+* **deps:** update rust crate serde_json to v1.0.134 ([#40](https://github.com/philipcristiano/owui-rag-sync/issues/40)) ([de29ebd](https://github.com/philipcristiano/owui-rag-sync/commit/de29ebdb3111ab74a763781d33247b067d34da1a))
+
 ## [0.1.6](https://github.com/philipcristiano/owui-rag-sync/compare/v0.1.5...v0.1.6) (2024-12-05)
 
 
