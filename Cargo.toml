@@ -27,5 +27,5 @@ thiserror = "1.0.59"
 http = "1.1.0"
 rust-s3 = { version = "0.35.1", features = ["with-tokio"] }
 aws-creds = { version = "0.38.0", features = ["rustls-tls"], default-features = false }
-aws-region = "0.27.0"
+aws-region = "0.28.0"
 bytes = "1.8.0"
