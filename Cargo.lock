@@ -251,9 +251,9 @@ dependencies = [
 
 [[package]]
 name = "aws-region"
-version = "0.28.0"
+version = "0.28.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5532f65342f789f9c1b7078ea9c9cd9293cd62dcc284fa99adc4a1c9ba43469c"
+checksum = "838b36c8dc927b6db1b6c6b8f5d05865f2213550b9e83bf92fa99ed6525472c0"
 dependencies = [
  "thiserror 2.0.12",
 ]
@@ -2079,7 +2079,7 @@ version = "0.1.6"
 dependencies = [
  "anyhow",
  "aws-creds 0.39.1",
- "aws-region 0.28.0",
+ "aws-region 0.28.1",
  "bytes",
  "chrono",
  "clap",
