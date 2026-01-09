@@ -23,7 +23,7 @@ signal-hook = "0.4.0"
 service_conventions = { version = "0.0.32", features = ["tracing", "oidc", "tracing-http"]}
 
 reqwest = { version = "0.12.4", features = ["rustls-tls", "json", "multipart"], default-features = false }
-thiserror = "1.0.59"
+thiserror = "2.0.0"
 http = "1.1.0"
 rust-s3 = { version = "0.35.1", features = ["with-tokio"] }
 aws-creds = { version = "0.39.0", features = ["rustls-tls"], default-features = false }
