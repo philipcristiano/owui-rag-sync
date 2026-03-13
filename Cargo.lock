@@ -2081,7 +2081,7 @@ dependencies = [
  "serde_json",
  "service_conventions",
  "signal-hook",
- "thiserror 1.0.69",
+ "thiserror 2.0.12",
  "tokio",
  "toml",
  "tracing",
